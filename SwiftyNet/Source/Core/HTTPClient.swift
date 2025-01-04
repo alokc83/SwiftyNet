@@ -9,44 +9,52 @@ import Foundation
 
 public final class HTTPClient {
     private let session: URLSession
-    
+
     public init(session: URLSession = .shared) {
         self.session = session
     }
-    
+
     public func sendRequest<T: Decodable>(_ endpoint: Endpoint, responseType: T.Type) async throws -> T {
-        var url = endpoint.baseURL.appendingPathComponent(endpoint.path)
-        
-        // Add query items to URL
-        if let queryItems = endpoint.queryItems {
-            var components = URLComponents(url: url, resolvingAgainstBaseURL: true)
-            components?.queryItems = queryItems
-            if let updatedURL = components?.url {
-                url = updatedURL
-            }
+        // Build the URL
+        guard let url = buildURL(from: endpoint) else {
+            throw APIError.invalidURL
         }
-        
-        // Create URLRequest
+
+        // Create the request
         var request = URLRequest(url: url)
         request.httpMethod = endpoint.method
-        endpoint.headers?.forEach { request.setValue($0.value, forHTTPHeaderField: $0.key) }
-        
-        // Perform request
-        let (data, response) = try await session.data(for: request)
-        
-        // Validate response
-        guard let httpResponse = response as? HTTPURLResponse, 200..<300 ~= httpResponse.statusCode else {
-            throw APIError.requestFailed(
-                statusCode: (response as? HTTPURLResponse)?.statusCode ?? -1,
-                data: data
-            )
+        endpoint.headers?.forEach { key, value in
+            request.setValue(value, forHTTPHeaderField: key)
         }
-        
-        // Decode response
+
         do {
-            return try JSONDecoder().decode(T.self, from: data)
+            // Perform the network request
+            let (data, response) = try await session.data(for: request)
+
+            // Validate the response
+            guard let httpResponse = response as? HTTPURLResponse, 200..<300 ~= httpResponse.statusCode else {
+                throw APIError.requestFailed(
+                    statusCode: (response as? HTTPURLResponse)?.statusCode ?? -1,
+                    data: data
+                )
+            }
+
+            // Decode the response
+            return try DecodingHelper.decode(responseType, from: data)
         } catch {
-            throw APIError.decodingError(error)
+            // Handle network errors
+            if (error as NSError).code == NSURLErrorNotConnectedToInternet {
+                throw APIError.networkUnavailable
+            }
+            throw APIError.unknown(error)
         }
+    }
+
+    // Helper method to build the URL with query items
+    private func buildURL(from endpoint: Endpoint) -> URL? {
+        var components = URLComponents(url: endpoint.baseURL, resolvingAgainstBaseURL: true)
+        components?.path += endpoint.path
+        components?.queryItems = endpoint.queryItems
+        return components?.url
     }
 }
