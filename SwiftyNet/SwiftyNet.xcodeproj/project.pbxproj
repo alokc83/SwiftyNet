@@ -21,6 +21,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BB026AE92D29D19C00DE3D1F /* ExampleSwiftNet.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ExampleSwiftNet.xcodeproj; path = ExampleSwiftNet/ExampleSwiftNet.xcodeproj; sourceTree = "<group>"; };
 		BBBE88202D29C3F000194190 /* SwiftyNet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftyNet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBBE882A2D29C3F100194190 /* SwiftyNetTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftyNetTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -70,9 +71,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BB026AEA2D29D19C00DE3D1F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		BBBE88162D29C3EF00194190 = {
 			isa = PBXGroup;
 			children = (
+				BB026AE92D29D19C00DE3D1F /* ExampleSwiftNet.xcodeproj */,
 				BBBE88222D29C3F000194190 /* SwiftyNet */,
 				BBBE882E2D29C3F100194190 /* SwiftyNetTests */,
 				BBBE88212D29C3F000194190 /* Products */,
@@ -177,6 +186,12 @@
 			preferredProjectObjectVersion = 77;
 			productRefGroup = BBBE88212D29C3F000194190 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = BB026AEA2D29D19C00DE3D1F /* Products */;
+					ProjectRef = BB026AE92D29D19C00DE3D1F /* ExampleSwiftNet.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				BBBE881F2D29C3F000194190 /* SwiftyNet */,
