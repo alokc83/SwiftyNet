@@ -15,16 +15,12 @@ public final class HTTPClient {
     }
 
     public func sendRequest<T: Decodable>(_ endpoint: Endpoint, responseType: T.Type) async throws -> T {
-        // Build the URL
-        guard let url = buildURL(from: endpoint) else {
+        // Build the request using RequestBuilder
+        let request: URLRequest
+        do {
+            request = try RequestBuilder.buildRequest(from: endpoint)
+        } catch {
             throw APIError.invalidURL
-        }
-
-        // Create the request
-        var request = URLRequest(url: url)
-        request.httpMethod = endpoint.method
-        endpoint.headers?.forEach { key, value in
-            request.setValue(value, forHTTPHeaderField: key)
         }
 
         do {
@@ -48,13 +44,5 @@ public final class HTTPClient {
             }
             throw APIError.unknown(error)
         }
-    }
-
-    // Helper method to build the URL with query items
-    private func buildURL(from endpoint: Endpoint) -> URL? {
-        var components = URLComponents(url: endpoint.baseURL, resolvingAgainstBaseURL: true)
-        components?.path += endpoint.path
-        components?.queryItems = endpoint.queryItems
-        return components?.url
     }
 }
