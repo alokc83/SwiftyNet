@@ -92,4 +92,92 @@ Response Types
    * Helps decode nested JSON responses
    * Extracts data from specific keys
    
+## Error Handling
+SwiftyNet provides comprehensive error handling through `APIError`:
+```swift 
+public enum APIError: Error {
+    case invalidURL
+    case requestFailed(statusCode: Int, data: Data?)
+    case decodingError(Error)
+    case networkUnavailable
+    case invalidResponse
+    case timeout
+    case unauthorized
+    case unknown(Error)
+}
+```
 
+## Advanced Features
+### Custom Headers
+```swift 
+let endpoint = Endpoint(
+    baseURL: URL(string: "https://api.example.com")!,
+    path: "/protected/resource",
+    method: .get,
+    headers: ["Authorization": "Bearer your-token"]
+)
+```
+
+### Request Caching
+```swift
+// Cache is automatically handled for GET requests
+let cacheManager = CacheManager(expirationInterval: 3600) // 1 hour
+let client = HTTPClient(cacheManager: cacheManager)
+```
+
+### Network Monitoring
+```swift
+let networkMonitor = NetworkMonitor()
+networkMonitor.startMonitoring()
+
+// Check connection status
+if networkMonitor.isConnected {
+    // Make request
+}
+```
+
+## Testing
+### The protocol-oriented design makes testing straightforward:
+```swift 
+class MockCacheManager: CacheManaging {
+    // Test implementation
+}
+
+class MockNetworkMonitor: NetworkMonitoring {
+    // Test implementation
+}
+
+// Use in tests
+let mockCache = MockCacheManager()
+let mockMonitor = MockNetworkMonitor()
+let client = HTTPClient(
+    cacheManager: mockCache,
+    networkMonitor: mockMonitor
+)
+```
+
+## Requirements
+
+* iOS 13.0+ / macOS 10.15+
+* Swift 5.5+
+* Xcode 13.0+
+
+## Contributing
+
+1. Fork the repository.  
+2. Create your feature branch:  
+   ```bash
+   git checkout -b feature/amazing-feature
+   ```
+3. Commit your changes 
+```bash
+git commit -m 'Add amazing feature'
+```
+4. Push to the branch (
+```bash
+git push origin feature/amazing-feature
+```
+5. Open a Pull Request
+
+## License
+see the LICENSE file for details
