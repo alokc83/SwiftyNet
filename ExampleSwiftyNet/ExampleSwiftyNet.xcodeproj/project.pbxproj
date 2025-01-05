@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		BBBE88902D2A2D4300194190 /* SwiftyNet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBBE888F2D2A2D4300194190 /* SwiftyNet.framework */; };
+		BBBE88912D2A2D4300194190 /* SwiftyNet.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BBBE888F2D2A2D4300194190 /* SwiftyNet.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		BB026B122D29D1EE00DE3D1F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -23,10 +28,25 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		BBBE88922D2A2D4400194190 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				BBBE88912D2A2D4300194190 /* SwiftyNet.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		BB026AFE2D29D1EC00DE3D1F /* ExampleSwiftyNet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExampleSwiftyNet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB026B112D29D1EE00DE3D1F /* ExampleSwiftyNetTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExampleSwiftyNetTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB026B1B2D29D1EE00DE3D1F /* ExampleSwiftyNetUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExampleSwiftyNetUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BBBE888F2D2A2D4300194190 /* SwiftyNet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftyNet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -52,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBBE88902D2A2D4300194190 /* SwiftyNet.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +99,7 @@
 				BB026B002D29D1EC00DE3D1F /* ExampleSwiftyNet */,
 				BB026B142D29D1EE00DE3D1F /* ExampleSwiftyNetTests */,
 				BB026B1E2D29D1EE00DE3D1F /* ExampleSwiftyNetUITests */,
+				BBBE888E2D2A2D4300194190 /* Frameworks */,
 				BB026AFF2D29D1EC00DE3D1F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -92,6 +114,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		BBBE888E2D2A2D4300194190 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BBBE888F2D2A2D4300194190 /* SwiftyNet.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -102,6 +132,7 @@
 				BB026AFA2D29D1EC00DE3D1F /* Sources */,
 				BB026AFB2D29D1EC00DE3D1F /* Frameworks */,
 				BB026AFC2D29D1EC00DE3D1F /* Resources */,
+				BBBE88922D2A2D4400194190 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

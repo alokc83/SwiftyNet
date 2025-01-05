@@ -12,6 +12,9 @@ public enum APIError: Error {
     case requestFailed(statusCode: Int, data: Data?)
     case decodingError(Error)
     case networkUnavailable
+    case invalidResponse
+    case timeout
+    case unauthorized
     case unknown(Error)
     
     public var localizedDescription: String {
@@ -24,6 +27,12 @@ public enum APIError: Error {
             return "Failed to decode response: \(error.localizedDescription)"
         case .networkUnavailable:
             return "The network is unavailable."
+        case .invalidResponse:
+            return "Received invalid response from server."
+        case .timeout:
+            return "Request timed out."
+        case .unauthorized:
+            return "Unauthorized access."
         case .unknown(let error):
             return "An unknown error occurred: \(error.localizedDescription)"
         }

@@ -7,8 +7,12 @@
 
 import Foundation
 
-/// Wrapper to decode a specific key from JSON
-public struct ParentKeyWrapper<T: Decodable>: Decodable {
+public protocol Wrappable {
+    associatedtype WrappedType: Decodable
+    var data: WrappedType { get }
+}
+
+public struct ParentKeyWrapper<T: Decodable>: Decodable, Wrappable {
     public let data: T
     
     private enum CodingKeys: String, CodingKey {
