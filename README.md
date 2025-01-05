@@ -14,6 +14,113 @@ SwiftyNet is a lightweight, protocol-oriented networking framework for Swift app
 - SOLID principles compliance
 - Testable architecture
 
+# Roadmap for SwiftyNet Framework
+
+## Current Functionality
+
+### Protocols
+1. **HTTPClientProtocol**  
+   - Implements `sendRequest` method for executing network requests.
+   - Ensures Single Responsibility and Interface Segregation.
+
+2. **EndpointProtocol**  
+   - Defines `baseURL`, `path`, `method`, `queryItems`, and `headers`.
+   - Promotes Open/Closed principle for extending endpoints.
+
+3. **RequestBuildable**  
+   - Handles the construction of `URLRequest` objects from `EndpointProtocol`.
+
+4. **CacheManaging**  
+   - Manages caching of network responses.
+   - Includes methods to save, retrieve, and clear cached data.
+
+5. **NetworkMonitoring**  
+   - Tracks network connectivity status (`isConnected`).
+   - Supports starting and stopping network monitoring.
+
+6. **ErrorHandling**  
+   - Converts errors into user-friendly messages.
+   - Simplifies error management in the library.
+
+---
+
+### Enums
+- **HTTPMethod**  
+  - Supports standard HTTP methods like GET, POST, PUT, DELETE, and PATCH.
+
+---
+
+### Implementations
+1. **Endpoint**  
+   - Implements `EndpointProtocol` to define endpoints with configurable paths, query items, and headers.
+
+2. **RequestBuilder**  
+   - Implements `RequestBuildable` to build `URLRequest` objects with query items and headers.
+
+3. **HTTPClient**  
+   - Implements `HTTPClientProtocol` to execute network requests.
+   - Integrates caching with `CacheManaging`.
+   - Validates responses and decodes data using `DecodingHelper`.
+   - Handles network unavailability with `NetworkMonitoring`.
+
+4. **NetworkMonitor**  
+   - Implements `NetworkMonitoring` using `NWPathMonitor` to track connectivity changes.
+
+---
+
+## Potential Enhancements
+
+### 1. Retry Mechanism
+- Implement a retry logic to handle transient network failures.
+- Allow configurable retry counts and backoff strategies.
+
+### 2. Authentication Support
+- Add token-based authentication (e.g., OAuth, JWT).
+- Automatically attach tokens to request headers.
+- Refresh tokens when they expire.
+
+### 3. Advanced Caching
+- Add disk-based caching for large responses.
+- Implement cache expiry and invalidation policies.
+
+### 4. Middleware/Interceptors
+- Add support for request/response middleware to preprocess or log requests and responses.
+
+### 5. Custom Error Mapping
+- Extend `ErrorHandling` to support app-specific error codes and messages.
+- Add localization support for error messages.
+
+### 6. Logging and Debugging
+- Add a logging utility to track network calls and responses.
+- Include optional verbose logging for debugging purposes.
+
+### 7. Multi-Part Requests
+- Support for multi-part form data for file uploads.
+
+### 8. Performance Monitoring
+- Track network performance (e.g., latency, response times).
+- Provide metrics for optimizing API usage.
+
+### 9. Tests and Mocks
+- Add unit tests for all protocols and implementations.
+- Provide mock implementations for `HTTPClientProtocol` and `NetworkMonitoring` for testing.
+
+---
+
+## Summary
+
+### Features Implemented
+- Protocol-based design for flexibility and modularity.
+- Core functionalities: HTTP requests, caching, network monitoring, error handling.
+- Updated implementations for `HTTPClient`, `Endpoint`, `RequestBuilder`, and `NetworkMonitor`.
+
+### Features to Add
+- Retry mechanism, advanced caching, and authentication support.
+- Middleware, multi-part request handling, and performance monitoring.
+- Comprehensive tests and logging utilities.
+
+This roadmap ensures SwiftyNet evolves into a robust, universal networking library for multiple platforms.
+
 ## Installation
 
 ### Swift Package Manager
