@@ -7,15 +7,14 @@
 
 import Foundation
 
-// Add this protocol definition at the top of the file
 public protocol CacheManaging {
     func save(data: Data, forKey key: String)
     func retrieve(forKey key: String) -> Data?
     func clear()
-    func remove(forKey key: String)
+    //func remove(forKey key: String)
 }
 
-public final class CacheManager {
+public final class CacheManager: CacheManaging {
     private let cache = NSCache<NSString, NSData>()
     
     public init() {}

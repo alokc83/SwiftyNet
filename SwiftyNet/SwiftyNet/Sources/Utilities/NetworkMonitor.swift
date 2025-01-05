@@ -7,14 +7,21 @@
 
 import Network
 
-// Add this protocol definition at the top of the file
 public protocol NetworkMonitoring {
     var isConnected: Bool { get }
     func startMonitoring()
     func stopMonitoring()
 }
 
-public final class NetworkMonitor {
+public final class NetworkMonitor: NetworkMonitoring {
+    public func startMonitoring() {
+        //
+    }
+    
+    public func stopMonitoring() {
+        //
+    }
+    
     private let monitor = NWPathMonitor()
     private let queue = DispatchQueue(label: "NetworkMonitorQueue")
     public private(set) var isConnected: Bool = true
