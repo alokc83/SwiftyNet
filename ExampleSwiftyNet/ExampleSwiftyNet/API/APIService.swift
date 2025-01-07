@@ -18,21 +18,11 @@ class APIService {
         self.httpClient = httpClient
     }
 
-    func fetchProducts() async throws -> [Product] {
-        let endpoint = Endpoint(
-            baseURL: URL(string: "https://fakestoreapi.com")!,
-            path: "/products",
-            method: .get
-        )
-        return try await httpClient.sendRequest(endpoint, responseType: [Product].self)
+    func fetchProducts(limit: Int? = nil) async throws -> [Product] {
+        try await httpClient.sendRequest(APIEndpoint.products(limit: limit).endpoint, responseType: [Product].self)
     }
 
-    func fetchUsers() async throws -> [User] {
-        let endpoint = Endpoint(
-            baseURL: URL(string: "https://fakestoreapi.com")!,
-            path: "/users",
-            method: .get
-        )
-        return try await httpClient.sendRequest(endpoint, responseType: [User].self)
+    func fetchUsers(id: Int? = nil) async throws -> [User] {
+        try await httpClient.sendRequest(APIEndpoint.users(id: id).endpoint, responseType: [User].self)
     }
 }

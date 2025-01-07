@@ -17,9 +17,7 @@ struct ProductsView: View {
                     }
                     
                 case .loaded(let products):
-                    ProductGridView(products: products) { product in
-                        cartViewModel.addToCart(product: product)
-                    }
+                    ProductGridView(products: products, cartViewModel: cartViewModel)
                     
                 case .initial:
                     Color.clear
