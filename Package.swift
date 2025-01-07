@@ -23,12 +23,14 @@ let package = Package(
         .target(
             name: "SwiftyNet",
             dependencies: [],
-            path: "SwiftyNet/SwiftyNet/Sources"
+            path: "SwiftyNet/SwiftyNet",
+            exclude: ["Info.plist"]
         ),
         .testTarget(
             name: "SwiftyNetTests",
             dependencies: ["SwiftyNet"],
-            path: "SwiftyNet/SwiftyNetTests"
+            path: "SwiftyNet/SwiftyNetTests",
+            exclude: ["Info.plist"]
         )
     ],
     swiftLanguageVersions: [.v5]
