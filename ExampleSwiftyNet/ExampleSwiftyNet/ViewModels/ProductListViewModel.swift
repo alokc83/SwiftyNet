@@ -17,26 +17,32 @@ class ProductListViewModel: ObservableObject {
     }
     
     @Published private(set) var state: ViewState = .initial
+    @Published var selectedCategory: String? = nil
     private let apiService: APIService
     
     init(apiService: APIService = APIService()) {
         self.apiService = apiService
     }
     
-    func fetchProducts() {
-        guard case .initial = state else {
-            state = .loading
-            return
-        }
-        
+    func fetchProducts(byCategory category: String? = nil) {
         Task {
             do {
                 state = .loading
-                let products = try await apiService.fetchProducts()
+                let products: [Product]
+                if let category = category {
+                    products = try await apiService.fetchProducts(byCategory: category)
+                } else {
+                    products = try await apiService.fetchProducts()
+                }
                 state = .loaded(products)
             } catch {
                 state = .error(error)
             }
         }
+    }
+    
+    func selectCategory(_ category: String?) {
+        selectedCategory = category
+        fetchProducts(byCategory: category)
     }
 } 

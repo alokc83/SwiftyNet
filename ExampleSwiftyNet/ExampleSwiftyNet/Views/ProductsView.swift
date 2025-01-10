@@ -16,9 +16,9 @@ struct ProductsView: View {
             VStack(alignment: .leading, spacing: 0) {
                 // Categories Section
                 CategoryView(
-                    selectedCategory: nil,
+                    selectedCategory: viewModel.selectedCategory,
                     onCategorySelected: { category in
-                        // We'll implement this later
+                        viewModel.selectCategory(category)
                     }
                 )
                 

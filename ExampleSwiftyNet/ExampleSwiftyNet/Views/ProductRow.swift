@@ -91,7 +91,8 @@ struct ProductRow: View {
                         isAnimating = false
                     }
                     
-                    // Implementation of onAddToCart
+                    // Add the product to cart
+                    cartViewModel.addToCart(product: product)
                 }) {
                     Image(systemName: "cart.badge.plus")
                         .font(.title3)
