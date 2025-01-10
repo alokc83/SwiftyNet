@@ -21,6 +21,14 @@ class APIService {
     func fetchProducts(limit: Int? = nil) async throws -> [Product] {
         try await httpClient.sendRequest(APIEndpoint.products(limit: limit).endpoint, responseType: [Product].self)
     }
+    
+    func fetchCategories() async throws -> [String] {
+        try await httpClient.sendRequest(APIEndpoint.categories.endpoint, responseType: [String].self)
+    }
+    
+    func fetchProducts(byCategory category: String) async throws -> [Product] {
+        try await httpClient.sendRequest(APIEndpoint.productsByCategory(category: category).endpoint, responseType: [Product].self)
+    }
 
     func fetchUsers(id: Int? = nil) async throws -> [User] {
         try await httpClient.sendRequest(APIEndpoint.users(id: id).endpoint, responseType: [User].self)

@@ -1,3 +1,10 @@
+//
+//  ProductRow.swift
+//  ExampleSwiftyNet
+//
+//  Created by Alok Choudhary on 1/4/25.
+//
+
 import SwiftUI
 
 struct ProductRow: View {
