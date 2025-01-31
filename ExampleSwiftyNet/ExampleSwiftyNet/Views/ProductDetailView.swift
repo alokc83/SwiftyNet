@@ -25,6 +25,7 @@ struct ProductDetailView: View {
                         .frame(maxHeight: 300)
                 } placeholder: {
                     ProgressView()
+                        .frame(maxWidth: .infinity)
                         .frame(height: 300)
                 }
                 .background(Color(UIColor.systemBackground))

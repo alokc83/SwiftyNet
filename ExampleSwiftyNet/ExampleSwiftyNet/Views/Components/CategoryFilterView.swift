@@ -7,14 +7,31 @@
 
 import SwiftUI
 
+/// A view that displays a horizontal scrollable list of category filters
 struct CategoryFilterView: View {
+    // MARK: - Properties
+    
+    /// Array of category identifiers to display
     let categories: [String]
+    
+    /// Currently selected category identifier (nil means "All" is selected)
     let selectedCategory: String?
+    
+    /// Callback when a category is selected
     let onCategorySelected: (String?) -> Void
+    
+    // MARK: - Body
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 16) {
+            HStack(spacing: AppConstants.UI.categorySpacing) {
+                CategoryChip(
+                    title: AppConstants.Categories.all,
+                    systemImage: "square.grid.2x2",
+                    isSelected: selectedCategory == nil,
+                    action: { onCategorySelected(nil) }
+                )
+                
                 ForEach(categories, id: \.self) { category in
                     CategoryChip(
                         title: titleFor(category),
@@ -28,55 +45,15 @@ struct CategoryFilterView: View {
         }
     }
     
+    // MARK: - Helper Methods
+    
+    /// Converts a category identifier to its display name
     private func titleFor(_ category: String) -> String {
-        switch category {
-        case "electronics": return "Electronics"
-        case "jewelery": return "Beauty"
-        case "men's clothing": return "Mens"
-        case "women's clothing": return "Womens"
-        default: return category.capitalized
-        }
+        AppConstants.Categories.displayNames[category] ?? category.capitalized
     }
     
+    /// Gets the SF Symbol name for a category
     private func iconFor(_ category: String) -> String {
-        switch category {
-        case "electronics": return "laptopcomputer"
-        case "jewelery": return "crown.fill"
-        case "men's clothing": return "tshirt.fill"
-        case "women's clothing": return "bag.fill"
-        default: return "questionmark.circle"
-        }
-    }
-}
-
-struct CategoryChip: View {
-    let title: String
-    let systemImage: String
-    let isSelected: Bool
-    let action: () -> Void
-    
-    var body: some View {
-        Button(action: action) {
-            VStack(spacing: 8) {
-                ZStack {
-                    Circle()
-                        .fill(Color(.systemGray6))
-                        .frame(width: 50, height: 50)
-                    
-                    Image(systemName: systemImage)
-                        .font(.system(size: 18))
-                        .foregroundColor(.primary)
-                }
-                .overlay(
-                    Circle()
-                        .stroke(isSelected ? Color.green : Color.clear, lineWidth: 2)
-                )
-                
-                Text(title)
-                    .font(.caption)
-                    .fontWeight(.medium)
-                    .foregroundColor(.primary)
-            }
-        }
+        AppConstants.Categories.icons[category] ?? "questionmark.circle"
     }
 } 
